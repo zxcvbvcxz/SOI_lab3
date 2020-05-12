@@ -3,22 +3,12 @@
 
 
 int main(int argc, char** argv){
-	if(argc<3)
-	{
-		cout << "Podaj id kolejki i id producenta\n";
-		return 0;
-	}
-	if(atoi(argv[1]) != 1 and atoi(argv[1]) != 2)
-	{
-		cout << "Podaj liczbę 1 lub 2\n";
-		return 0;
-	}
-	int wybor = atoi(argv[1]);
-	int id_p = atoi(argv[2]);
+
 
 	srand(unsigned (time(0)));
 
 	int 	fd_shm_1, fd_shm_2; //file descriptor shared memory
+
 
 	k_kolejka* kolejka_1;
 	k_kolejka* kolejka_2;
@@ -75,24 +65,13 @@ int main(int argc, char** argv){
      	cout << "sem_open" << endl;
 	}	
 	
-	int id_w=1;
 
-	wiadomosc msg(1,id_p,id_w);
+
 	double sekundy = 1 + (rand()%4) / (rand()%10 + 1); 
 	while(true){
-	if(wybor == 1)
-	{
-		msg.id_wiadomosci = id_w;
-		msg.id_kolejki=1;
-		kolejka_1->dodaj(1,msg);
-		id_w++;
-	} else
-	{
-		msg.id_wiadomosci = id_w;
-		msg.id_kolejki=2;
-		kolejka_2->dodaj(2,msg);
-		id_w++;
-	}
+	kolejka_2->poczPis(2);
+	cout <<"Program testowy 1\n\n";
+	kolejka_2->konPis(2);
 	usleep(sekundy  * 1000000);
 	sekundy = 1 + (rand()%4) / (rand()%10 + 1); 
 	}
